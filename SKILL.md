@@ -14,21 +14,23 @@ description: >-
 
 **样式固定**：直接复用 `assets/report-template.html` 的完整 CSS/JS，产出的版式与范例完全一致，无需重新设计。
 
-## 用法
+## 用法（一句话直接开工，不再问用户）
 
-用户说"使用这个 skill，分析 XXX"时，XXX 就是目标车型。开工前一次性确认四件事（用一次提问，别多轮打断）：
+用户说"使用这个 skill，分析 XXX"或"分析 XXX"时，XXX 就是目标车型，**立即开工，不要再问任何确认问题**。以下规则已由用户拍板固化：
 
-1. **视觉方向**：是否先用 design-taste-frontend 出三张样张给用户选？（默认要；用户选了方向就按选定方向，但样式骨架不变）
-2. **发布会视频**：链接 or 本地文件 or 不需要？——视频是一手信息的关键，强烈建议要。
-3. **图片口径**：只用官网原图 + 官方发布会截图？还是放宽到官方社媒/权威媒体实拍？——默认严格。
-4. **水印文字与 logo**：默认文字 "VEHICLE ARCHITECTURE DEVELOPMENT" + 用户提供 logo 图；可按用户改。
+1. **车型消歧**：默认取**最新在售/最新发布款**（如"腾势N8"取 2026 全新纯电款，非 2023 老款、非 N8L）；报告开头注明具体年款/版本。仅在同名车型实在无法判断是哪款时，才让用户做一次选择。
+2. **发布会视频来源**：统一先去 B 站 UP 主 **"新能车官方"** 找该车发布会全流程；找不到就自行网上搜索发布会全流程，**不要让用户提供**。只有 B 站和网上都确实找不到完整视频时，才停下来告知用户并请其提供视频链接。
+3. **图片口径**：官网原图 + 官方发布会截图优先；某章节核对后名实不符或图不足时，**放宽到权威媒体实拍补充**（如汽车之家等），并标注来源。仍按画面与章节匹配逐一核对。
+4. **样式/水印全部固定**：直接用 `assets/report-template.html` 的完整 CSS/JS（勿改样式）；视觉方向不再出样张。水印固定为左上角横排 VADD logo（`assets/vadd-logo.jpg`）+ 文字 "VEHICLE ARCHITECTURE DEVELOPMENT"，logo 从资源包取、不要让用户再提供。
+5. **GitHub 同步**：每次改了本 skill 的 SKILL.md / assets / references / scripts，顺手 git commit 并推送到 `Vegeta3912/car-express-skill`（推送走 `gh api` 方式，见 README；直连 git push 常遇代理 502）。
 
 用户偏好（务必遵守）：**一页上下滚动看完全部内容**，不要多层点击折叠；但目录必须保留（侧栏/顶部，滚动高亮，窄屏可展开）。单文件 HTML、图片内联、离线可开。
 
 ## 标准流程
 
 ### 第 1 步 · 拿发布会视频（一手内容）
-B 站短链用 `curl -sIL` 解析出 BV 号 → `api.bilibili.com/x/web-interface/view` 拿 cid/title/duration。
+**来源顺序（固定）**：① B 站 UP 主"新能车官方"搜该车发布会全流程 → ② 网上搜发布会全流程 → ③ 都找不到才停下告知用户、请其提供链接。不要一上来就问用户要视频。
+B 站链接/短链用 `curl -sIL` 解析出 BV 号 → `api.bilibili.com/x/web-interface/view` 拿 cid/title/duration。
 用 `python3 -m yt_dlp -f "bv*[height<=480]+ba/b[height<=480]/worst" --merge-output-format mp4` 下载（480p 足够抽帧）。
 yt-dlp 常找不到系统 ffmpeg：用 `imageio_ffmpeg.get_ffmpeg_exe()` 拿路径，手动 `-c copy` 合并音视频流。
 
