@@ -98,13 +98,15 @@ th,td{text-align:left;padding:16px 18px;border-bottom:1px solid var(--line);vert
 th{background:var(--band);font-weight:800;font-size:13px;letter-spacing:.03em;color:var(--ink);white-space:nowrap}
 tbody tr:last-child td{border-bottom:0}
 td.num{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap;color:var(--ink)}
-/* 对比表优势方 */
-.cmp{min-width:640px}
-.cmp th:first-child,.cmp td:first-child{white-space:nowrap;min-width:88px}
+/* 对比表：优势胶囊标签 */
+.cmp{min-width:720px}
+.cmp th:first-child,.cmp td:first-child{white-space:nowrap;min-width:104px}
 .cmp th:not(:first-child),.cmp td:nth-child(2){font-weight:700}
-.cmp td.adv-a{color:var(--accent);font-weight:800}
-.cmp td.adv-b{color:var(--accent2);font-weight:800}
-.cmp td.adv-tie{color:var(--muted);font-weight:700}
+.cmp td:nth-child(4){white-space:nowrap}
+.win{display:inline-block;padding:4px 10px;border-radius:3px;font-size:12.5px;font-weight:800;letter-spacing:.01em;line-height:1.4}
+.win-a{background:var(--accent);color:#fff}
+.win-b{background:var(--accent2);color:#fff}
+.win-tie{background:#eef2f4;color:var(--muted);font-weight:700}
 .tag-est{display:inline-block;background:#fff4d6;color:#7a5600;font-size:11.5px;font-weight:800;padding:1px 7px;border-radius:2px;margin-left:4px}
 .tag-off{display:inline-block;background:#e4f0e9;color:#16613e;font-size:11.5px;font-weight:800;padding:1px 7px;border-radius:2px;margin-left:4px}
 /* 要点列表 */
@@ -224,14 +226,18 @@ ul.clean li b{color:var(--ink);font-weight:800}
     </table></div>
     <p class="footnote">{{高配说明与总款数}} <sup>[n]</sup></p>
 
-    <h3>1.2 基础参数总表</h3>
-    <div class="tblwrap"><table>
-      <thead><tr><th>项目</th><th>数值</th><th>来源 / 说明</th></tr></thead>
+    <!-- 基础参数 + 对标融合成一张四列表：不展示来源列；第三列放对标车；第四列优势用胶囊标签 -->
+    <h3>1.2 基础参数与对标（{{对标车}}）</h3>
+    <div class="tblwrap"><table class="cmp">
+      <thead><tr><th>项目</th><th>{{目标车}}</th><th>{{对标车}}</th><th>优势</th></tr></thead>
       <tbody>
-      <tr><td>长×宽×高</td><td class="num">{{…}}</td><td>{{来源}} <sup>[n]</sup></td></tr>
-      <!-- 尽量多列：轴距、前后悬、轮距、接近/离去角、离地间隙、风阻、质量、轮胎、涉水、容积、0-100、快充、对外放电、馈电油耗、前后悬架、电池容量… -->
+      <tr><td>指导价</td><td class="num">{{…}}</td><td class="num">{{…}}</td><td><span class="win win-b">{{对标车更…}}</span></td></tr>
+      <tr><td>长×宽×高</td><td class="num">{{…}}</td><td class="num">{{…}}</td><td><span class="win win-tie">相当</span></td></tr>
+      <tr><td>轴距</td><td class="num">{{…}}</td><td class="num">{{…}}</td><td><span class="win win-a">{{目标车更…}}</span></td></tr>
+      <!-- 尽量多列参数：前后悬/轮距/接近离去角/离地间隙/风阻/质量/涉水/座位/能源/电池/高压平台/快充/续航/对外放电/馈电油耗/0-100/后轮转向/转弯半径/悬架/智驾/车身/气囊/后备箱。对标车缺的填 —，优势填 win-tie「—」 -->
       </tbody>
     </table></div>
+    <p class="footnote">{{两车数据口径}}；"优势"仅就该项硬指标而言，不代表整车优劣，未公布项以"—"表示。</p>
 
     <figure class="figure">
       <img src="__IMG_dims__" alt="官方尺寸标注图">
@@ -387,18 +393,6 @@ ul.clean li b{color:var(--ink);font-weight:800}
       <tr><td><b>{{维度}}</b></td><td>{{结论}}</td></tr>
       </tbody>
     </table></div>
-
-    <h3>与{{对标车}}的关键维度对比</h3>
-    <p>{{两车定位差异说明}}</p>
-    <div class="tblwrap"><table class="cmp">
-      <thead><tr><th>维度</th><th>{{目标车}}</th><th>{{对标车}}</th><th>优势方</th></tr></thead>
-      <tbody>
-      <!-- 只列对架构判断有意义的硬指标；优势方用 adv-a(品红=目标车)/adv-b(蓝=对标车)/adv-tie(持平) -->
-      <tr><td>{{维度}}</td><td>{{目标车值}}</td><td>{{对标车值}}</td><td class="adv-a">{{目标车更…}}</td></tr>
-      <tr><td>{{维度}}</td><td>{{目标车值}}</td><td>{{对标车值}}</td><td class="adv-b">{{对标车更…}}</td></tr>
-      </tbody>
-    </table></div>
-    <p class="footnote">数据口径：{{两车来源}}；"优势方"仅就单项硬指标而言，不代表整车优劣。</p>
 
     <h3>适合谁，需要注意什么</h3>
     <p>{{购买建议与口径提醒；结合对标车给出选择建议}}</p>
